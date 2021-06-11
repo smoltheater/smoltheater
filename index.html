@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GIF Displayer</title>
+        <style>
+            #output-container{
+                padding: 10px;
+                border-radius: 5px;
+                background: rgb(230,230,230);
+                border: rgb(180,180,180) solid 1px;
+                width: 0;
+                height: 0;
+            }
+            #output{
+                image-rendering: pixelated;
+                image-rendering: crisp-edges;
+            }
+            #err{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="output-container">
+            <img id="output">
+        </div>
+        <input id="f-input" type="file">
+        <input id="t-input" type="text">
+        <p id="err"></p>
+        
+        <script>
+            let finput = document.getElementById("f-input");
+            let tinput = document.getElementById("t-input");
+            let outputContainer = document.getElementById("output-container");
+            let output = document.getElementById("output");
+            let err = document.getElementById("err");
+            
+            output.addEventListener("load",e => {
+                if(output.width > 10 || output.height > 10){
+                    output.src = "";
+                    output.width = 0;
+                    output.height = 0;
+                    err.innerHTML = "FAKE SMOLS ARE NOT SUPPORTED: 10 X 10 max";
+                    return;
+                }
+                err.innerHTML = "";
+                output.width *= 48;
+                outputContainer.style.width = output.width + "px";
+                outputContainer.style.height = output.height + "px";
+            });
+            
+            tinput.addEventListener("input",e => {
+                output.src = tinput.value;
+            });
+            
+            finput.addEventListener("input",e => {
+                output.src = URL.createObjectURL(finput.files[0]);
+            });
+            
+            function verify(f){
+                if(f){
+                    
+                }
+            }
+        </script>
+    </body>
+</html>
